@@ -1,28 +1,19 @@
 <template>
     <div id="app">
-        <ModalAlerta>
-            <template v-slot:header>
-                <h1>Header do Slot</h1>
-            </template>
-            <template v-slot="user">
-            {{ user.nome }}
-            <button>Comprar</button>
-            </template>
-            <template v-slot:footer>
-                <p>Esse é o footer do slot.</p>
-            </template>
-        </ModalAlerta>
+        <p :class="comprou ? 'verde' : 'vermelho'">Comprou:</p>
     </div>
+        
 </template>
 
 <script>
 
-import ModalAlerta from './components/ModalAlerta.vue'
 
 export default {
     name: '#app',
-    components: {
-        ModalAlerta
+    data() {
+        return {
+            comprou: true
+        }
     }
 
 }
