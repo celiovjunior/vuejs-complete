@@ -1,22 +1,28 @@
 <template>
     <div id="app">
-        {{ message }}
-        <HeaderPrincipal />
+        <ModalAlerta>
+            <template v-slot:header>
+                <h1>Header do Slot</h1>
+            </template>
+            <template v-slot="user">
+            {{ user.nome }}
+            <button>Comprar</button>
+            </template>
+            <template v-slot:footer>
+                <p>Esse é o footer do slot.</p>
+            </template>
+        </ModalAlerta>
     </div>
 </template>
 
 <script>
 
-import HeaderPrincipal from './components/HeaderPrincipal.vue'
+import ModalAlerta from './components/ModalAlerta.vue'
 
 export default {
+    name: '#app',
     components: {
-        HeaderPrincipal
-    },
-    data() {
-        return {
-            message: "This is a message."
-        }
+        ModalAlerta
     }
 
 }
