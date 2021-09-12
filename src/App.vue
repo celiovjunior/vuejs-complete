@@ -1,18 +1,9 @@
 <template>
     <div id="app">
-        <div>
-            <h1>
-            {{ apple.companyName }}
-            </h1>
-            <p :class="apple.marketCap > google.marketCap ? 'verde' : 'vermelho' ">{{ apple.marketCap}}</p>
-        </div>
-        <div>
-            <h1>
-            {{ google.companyName }}
-            </h1>
-            <p :class="google.marketCap > apple.marketCap ? 'verde' : 'vermelho' ">{{ google.marketCap }}</p>
-        </div>
-        <button @click="pushData">Push</button>
+        <button @click="handleClick">Click</button>
+        <!-- <p>{{ contador }}</p> -->
+        <button @click="ativo = !ativo">Toggle</button>
+        <p v-if="ativo == true">Mostrar texto.</p>
     </div>     
 </template>
 
@@ -23,42 +14,20 @@ export default {
     name: '#app',
     data() {
         return {
-            google: {},
-            apple: {},
+            contador: 0,
+            ativo: true
         }
     },
     methods: {
-        fetchGoogle() {
-            fetch("https://api.origamid.dev/stock/googl/quote")
-            .then(r => r.json())
-            .then(google => {
-                this.google = google
-            })
-        },
-        fetchApple() {
-            fetch("https://api.origamid.dev/stock/aapl/quote")
-            .then(r => r.json())
-            .then(apple => {
-                this.apple = apple
-            })
-        },
-        pushData() {
-            this.fetchGoogle();
-            this.fetchApple()
+        handleClick() {
+            console.log(event)
         }
     }
-
 }
 
 
 </script>
 
 <style>
-    .verde {
-        color: green
-    }
 
-    .vermelho {
-        color: red
-    }
 </style>
