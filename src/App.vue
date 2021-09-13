@@ -1,19 +1,9 @@
 <template>
     <div id="app">
+        <button @click="fetchData">Mostrar</button>
         <ul>
-            <!--O v-for aceita como parametros, nessa ordem: ELEMENTO - KEY - INDEX -->
-            <!-- <li v-for="el, k, index in estados" :key="k">{{ el }} : {{ k }} : {{ index }}</li> -->
-
-            <li v-for="(estado, k) in estados" :key="k + nome">
-                <h1>{{ estado.nome }}</h1>
-                <p>{{ estado.populacao }}</p>
-            </li>
+            <li v-for="(dados, k) in dataApi" :key="k">{{k}} : {{ dados }}</li>
         </ul>
-        <div>
-            <ul>
-                <li v-for="(n, k) in 5" :key="k">{{ n }}</li>
-            </ul>
-        </div>
     </div>
 </template>
 
@@ -21,26 +11,19 @@
 
 export default {
     name: '#app',
+    methods: {
+        fetchData() {
+            fetch('https://viacep.com.br/ws/04538133/json/')
+            .then(r => r.json())
+            .then(r => {
+                this.dataApi = r
+            })
+        }
+    },
+
     data() {
         return {
-            estados: {
-                sp: {
-                    populacao: "45 milhoes",
-                    nome: "Sao Paulo"
-                },
-                mg: {
-                    populacao: "21 milhoes",
-                    nome: "Minas Gerais"
-                },
-                rj: {
-                    populacao: "17 milhoes",
-                    nome: "Rio de Janeiro"
-                },
-                ce: {
-                    populacao: "9 milhoes",
-                    nome: "Ceará"
-                }
-            }
+            dataApi: {}
         }
     }
 }
