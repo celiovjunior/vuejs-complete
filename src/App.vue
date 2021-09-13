@@ -1,12 +1,8 @@
 <template>
     <div id="app">
-        <div v-html="link"></div>
-        <p v-text="item"></p>
-
-        <p v-once>saldo: R$ {{ total - sacado }}</p>
-        <button @click="sacado += 5">sacar R$ 5</button>
-        <p> {{ sacado }}</p>
-        <p>novo saldo: R$ {{ total - sacado }}</p>
+        <ul>
+            <li v-for="(curso, index) in cursos" :key="curso">{{ curso }} {{ index }} </li>
+        </ul>
     </div>
 </template>
 
@@ -16,10 +12,7 @@ export default {
     name: '#app',
     data() {
         return {
-            link: "<a href='https://www.google.com'>Google</a>",
-            item: "Camiseta",
-            total: 150,
-            sacado: 20
+            cursos: ["HTML", "CSS", "JavaScript", "Java", "PHP"]
         }
     }
 }
