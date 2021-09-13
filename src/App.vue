@@ -1,39 +1,28 @@
 <template>
     <div id="app">
-        <p>Bermuda: {{ estoque }}</p>
-        <button v-show="estoque" @click="Comprar">+</button>
-        <button v-show="contador >= 1" @click="Remover">-</button>
-        <p>Carrinho: {{ contador }}</p>
+        <div v-html="link"></div>
+        <p v-text="item"></p>
+
+        <p v-once>saldo: R$ {{ total - sacado }}</p>
+        <button @click="sacado += 5">sacar R$ 5</button>
+        <p> {{ sacado }}</p>
+        <p>novo saldo: R$ {{ total - sacado }}</p>
     </div>
-    <template v-if="estoque <= 0">
-        <p>Item esgotado.</p>
-    </template>
 </template>
 
 <script>
-
 
 export default {
     name: '#app',
     data() {
         return {
-            contador: 0,
-            estoque: 7
-        }
-    },
-    methods: {
-        Comprar() {
-            this.contador++
-            this.estoque--
-        },
-        Remover() {
-            this.contador--
-            this.estoque++
+            link: "<a href='https://www.google.com'>Google</a>",
+            item: "Camiseta",
+            total: 150,
+            sacado: 20
         }
     }
 }
-
-
 </script>
 
 <style>
