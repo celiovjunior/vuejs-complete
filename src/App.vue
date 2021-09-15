@@ -3,8 +3,8 @@
         <input type="text" placeholder="cep" name="" id="" maxlength="8" v-model="cep">
         <h1>{{ cep }}</h1>
         <ul>
-            <li>
-                {{ endereco }}
+            <li v-for="(valor, key) in endereco" :key="key">
+                {{key}} : {{valor}}
             </li>
         </ul>
     </div>
@@ -17,7 +17,7 @@ export default {
     data() {
         return {
             cep: "",
-            endereco: ""
+            endereco: {}
         }
     },
     watch: {
