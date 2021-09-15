@@ -1,9 +1,12 @@
 <template>
     <div id="app">
-        <button @click="fetchData">Mostrar</button>
+        <h1>Carros</h1>
         <ul>
-            <li v-for="(dados, k) in dataApi" :key="k">{{k}} : {{ dados }}</li>
+            <li v-for="(carro, k) in carrosAzuis" :key="k">{{ carro.marca }}</li>
         </ul>
+        <button @click="removerCarro">Remover</button>        
+        <p>{{ contador }}</p>
+        <button @click="adicionar">Adicionar</button>
     </div>
 </template>
 
@@ -11,19 +14,42 @@
 
 export default {
     name: '#app',
-    methods: {
-        fetchData() {
-            fetch('https://viacep.com.br/ws/04538133/json/')
-            .then(r => r.json())
-            .then(r => {
-                this.dataApi = r
-            })
-        }
-    },
-
     data() {
         return {
-            dataApi: {}
+            contador: 0,
+            carros: [
+            {
+                marca: 'vw',
+                cor: 'azul'
+            },
+            {
+                marca: 'ford',
+                cor: 'preto'
+            },
+            {
+                marca: 'tesla',
+                cor: 'azul'
+            }
+            ]
+        }
+    },
+    computed: {
+        carrosAzuis() {
+            const filtro = this.carros.filter(({cor}) => cor === 'azul');
+            return filtro
+        }
+    },
+    methods: {
+        removerCarro() {
+            this.carros.pop()
+        },
+        adicionar() {
+            this.contador++
+        }
+    },
+    watch: {
+        carros(valorNovo) {
+            console.log(valorNovo)
         }
     }
 }
