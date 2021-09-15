@@ -1,12 +1,14 @@
 <template>
     <div id="app">
-        <input type="text" placeholder="cep" name="" id="" maxlength="8" v-model="cep">
-        <h1>{{ cep }}</h1>
-        <ul>
-            <li v-for="(valor, key) in endereco" :key="key">
-                {{key}} : {{valor}}
-            </li>
-        </ul>
+        <!-- <h1>USUÁRIO:</h1>
+        <p>{{ nomeCompleto }}</p> -->
+        <button @click="puxarPaises">Puxar</button>
+        <select name="paises" id="paises" v-model="paisSelecionado">
+            <option v-for="(pais, k) in paises" :key="k" :value="pais.name">
+                {{pais.name}}
+            </option>
+        </select>
+        <p>{{ capital.capital }}</p>
     </div>
 </template>
 
@@ -16,21 +18,30 @@ export default {
     name: '#app',
     data() {
         return {
-            cep: "",
-            endereco: {}
+            // nome: "Matheus",
+            // sobrenome: "Pinheiro"
+            paises: {},
+            paisSelecionado: "",
+            capital: ""
         }
     },
+    methods: {
+        puxarPaises() {
+            fetch(`https://restcountries.eu/rest/v2/all`)
+            .then(r => r.json())
+            .then(r => {
+                this.paises = r;
+            })
+        }
+    },
+    computed: {
+        // nomeCompleto() {
+        //     return this.nome + " " + this.sobrenome
+        // }
+    },
     watch: {
-         async cep(valor) {
-            if (valor.length === 8) {
-                await fetch(`https://viacep.com.br/ws/${valor}/json`)
-                .then(r => r.json())
-                .then(r => {
-                    this.endereco = r;
-                })
-    
-                console.log(this.endereco)
-            }
+        paisSelecionado(valor) {
+            this.capital = this.paises.find((pais) => pais.name === valor)
         }
     }
 }
