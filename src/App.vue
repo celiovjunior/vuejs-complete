@@ -1,12 +1,12 @@
 <template>
     <div id="app">
-        <h1>Carros</h1>
+        <input type="text" placeholder="cep" name="" id="" maxlength="8" v-model="cep">
+        <h1>{{ cep }}</h1>
         <ul>
-            <li v-for="(carro, k) in carrosAzuis" :key="k">{{ carro.marca }}</li>
+            <li>
+                {{ endereco }}
+            </li>
         </ul>
-        <button @click="removerCarro">Remover</button>        
-        <p>{{ contador }}</p>
-        <button @click="adicionar">Adicionar</button>
     </div>
 </template>
 
@@ -16,40 +16,21 @@ export default {
     name: '#app',
     data() {
         return {
-            contador: 0,
-            carros: [
-            {
-                marca: 'vw',
-                cor: 'azul'
-            },
-            {
-                marca: 'ford',
-                cor: 'preto'
-            },
-            {
-                marca: 'tesla',
-                cor: 'azul'
-            }
-            ]
-        }
-    },
-    computed: {
-        carrosAzuis() {
-            const filtro = this.carros.filter(({cor}) => cor === 'azul');
-            return filtro
-        }
-    },
-    methods: {
-        removerCarro() {
-            this.carros.pop()
-        },
-        adicionar() {
-            this.contador++
+            cep: "",
+            endereco: ""
         }
     },
     watch: {
-        carros(valorNovo) {
-            console.log(valorNovo)
+         async cep(valor) {
+            if (valor.length === 8) {
+                await fetch(`https://viacep.com.br/ws/${valor}/json`)
+                .then(r => r.json())
+                .then(r => {
+                    this.endereco = r;
+                })
+    
+                console.log(this.endereco)
+            }
         }
     }
 }
